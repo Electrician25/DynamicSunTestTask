@@ -8,6 +8,4 @@ app.UseHttpsRedirection();
 app.UseRouting();
 app.UseStaticFiles();
 app.UseRouting();
-app.UseAuthorization();
-app.MapRazorPages();
 app.Run();
