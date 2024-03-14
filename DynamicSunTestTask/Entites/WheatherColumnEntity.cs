@@ -1,7 +1,8 @@
 ﻿namespace DynamicSunTestTask.Entites
 {
-	public class WeatherColumnsEntities
+	public class WheatherColumnEntity
 	{
+		public int ID { get; set; }
 		public int Date { get; set; }
 		public string MoskowTime { get; set; } = null!;
 		public double Temperature { get; set; }
