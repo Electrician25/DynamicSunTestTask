@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DynamicSunTestTask.Controllers.cs
 {
+	[Route("/api/")]
 	[ApiController]
-	[Route("/api/{controller}")]
 	public class WheatherColumnsController : ControllerBase
 	{
 		private readonly WheatherColumnsCrud _WheatherColumnsCrud;
