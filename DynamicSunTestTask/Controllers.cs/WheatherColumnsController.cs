@@ -16,7 +16,7 @@ namespace DynamicSunTestTask.Controllers.cs
 		}
 
 		[HttpGet]
-		[Route("addAllColumns")]
+		[Route("getAllColumns")]
 		async public Task<WheatherColumnEntity[]> GetAllAsync()
 		{
 			return await _WheatherColumnsCrud.GetAllColumnsAsync();
