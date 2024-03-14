@@ -6,11 +6,11 @@ namespace DynamicSunTestTask.Controllers.cs
 {
 	[ApiController]
 	[Route("/api/{controller}")]
-	public class WheatherColumnsControllers : ControllerBase
+	public class WheatherColumnsController : ControllerBase
 	{
 		private readonly WheatherColumnsCrud _WheatherColumnsCrud;
 
-		public WheatherColumnsControllers(WheatherColumnsCrud wheatherColumnsCrud)
+		public WheatherColumnsController(WheatherColumnsCrud wheatherColumnsCrud)
 		{
 			_WheatherColumnsCrud = wheatherColumnsCrud;
 		}
