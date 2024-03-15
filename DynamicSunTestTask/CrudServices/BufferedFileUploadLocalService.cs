@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Net.Http.Headers;
-using ProCodeGuide.Samples.FileUpload.Interfaces;
+﻿using ProCodeGuide.Samples.FileUpload.Interfaces;
 
 namespace ProCodeGuide.Samples.FileUpload.Services
 {
-    public class BufferedFileUploadService : IBufferedFileUploadService
+    public class BufferedFileUploadLocalService : IBufferedFileUploadService
     {
         public async Task<bool> UploadFile(IFormFile file)
         {

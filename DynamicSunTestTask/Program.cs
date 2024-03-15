@@ -11,7 +11,7 @@ builder.Services.AddRouting();
 
 builder.AddApplicationContext();
 
-builder.Services.AddTransient<IBufferedFileUploadService, BufferedFileUploadService>();
+builder.Services.AddTransient<IBufferedFileUploadService, BufferedFileUploadLocalService>();
 
 builder.Services.AddControllers();
 

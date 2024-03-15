@@ -3,19 +3,16 @@ using ProCodeGuide.Samples.FileUpload.Interfaces;
 
 namespace ProCodeGuide.Samples.FileUpload.Controllers
 {
-    public class FileUploadController : Controller
+    public class BufferedFileUploadController : Controller
     {
         readonly IBufferedFileUploadService _bufferedFileUploadService;
 
-        public FileUploadController(IBufferedFileUploadService bufferedFileUploadService)
+        public BufferedFileUploadController(IBufferedFileUploadService bufferedFileUploadService)
         {
             _bufferedFileUploadService = bufferedFileUploadService;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public IActionResult Index() => View();
 
         [HttpPost]
         public async Task<ActionResult> Index(IFormFile file)
@@ -31,9 +28,8 @@ namespace ProCodeGuide.Samples.FileUpload.Controllers
                     ViewBag.Message = "File Upload Failed";
                 }
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                //Log ex
                 ViewBag.Message = "File Upload Failed";
             }
             return View();
