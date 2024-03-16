@@ -23,7 +23,7 @@ namespace DynamicSunTestTask.CrudServices
         async public Task<WheatherColumnEntity> GetColumnByIdAsync(int id)
         {
             return await applicationContext.WheatherColumnsEntitis
-                .FirstOrDefaultAsync(columnId => columnId.ID == id)
+                .FirstOrDefaultAsync(columnId => columnId.Id == id)
                 ?? throw new Exception("Column by id not found!");
         }
 
@@ -42,7 +42,7 @@ namespace DynamicSunTestTask.CrudServices
         public WheatherColumnEntity DeleteColumn(int id)
         {
             var column = applicationContext.WheatherColumnsEntitis
-                .FirstOrDefault(columnId => columnId.ID == id)
+                .FirstOrDefault(columnId => columnId.Id == id)
                 ?? throw new Exception("For delete column not found");
 
             applicationContext.Remove(column);
@@ -57,7 +57,7 @@ namespace DynamicSunTestTask.CrudServices
                 throw new Exception("For update column is not find!");
 
             var column = await applicationContext.WheatherColumnsEntitis
-                .FirstOrDefaultAsync(id => id.ID == newColumn.ID)
+                .FirstOrDefaultAsync(id => id.Id == newColumn.Id)
                 ?? throw new Exception("For update column is not find");
 
             newColumn.Date = column.Date;
@@ -68,7 +68,7 @@ namespace DynamicSunTestTask.CrudServices
             newColumn.MoskowTime = column.MoskowTime;
             newColumn.Temperature = column.Temperature;
             newColumn.AirHumidity = column.AirHumidity;
-            newColumn.lowerCloudLimit = column.lowerCloudLimit;
+            newColumn.LowerCloudLimit = column.LowerCloudLimit;
             newColumn.WeatherConditions = column.WeatherConditions;
             newColumn.DirectionOfTheWind = column.DirectionOfTheWind;
             newColumn.HorizontalVisibility = column.HorizontalVisibility;

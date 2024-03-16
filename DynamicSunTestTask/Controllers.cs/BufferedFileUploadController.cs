@@ -6,10 +6,12 @@ namespace ProCodeGuide.Samples.FileUpload.Controllers
     public class BufferedFileUploadController : Controller
     {
         readonly IBufferedFileUploadService _bufferedFileUploadService;
+        readonly ReadDocument _readDocument;
 
-        public BufferedFileUploadController(IBufferedFileUploadService bufferedFileUploadService)
+        public BufferedFileUploadController(IBufferedFileUploadService bufferedFileUploadService, ReadDocument readDocument)
         {
             _bufferedFileUploadService = bufferedFileUploadService;
+            _readDocument = readDocument;
         }
 
         public IActionResult Index() => View();
@@ -32,6 +34,7 @@ namespace ProCodeGuide.Samples.FileUpload.Controllers
             {
                 ViewBag.Message = "File Upload Failed";
             }
+            _readDocument.WriteExcelDocument(file.FileName);
             return View();
         }
     }
