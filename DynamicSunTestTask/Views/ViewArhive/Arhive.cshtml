@@ -1,1 +1,50 @@
-﻿
+﻿@model IEnumerable<DynamicSunTestTask.Entites.WheatherColumn>
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <li>@Html.DisplayFor(modelItem => item.Date)</li>
+            <td>
+                @Html.DisplayFor(modelItem => item.MoscowTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Temperature)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AirHumidity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DewPoint)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pressure)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DirectionOfTheWind)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WindSpeed)
+            </td>
+            <th>
+                @Html.DisplayFor(modelItem => item.Cloudy)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.LowerCloudLimit)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.HorizontalVisibility)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.WeatherConditions)
+            </th>
+            @*
+        <td>
+        @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+        @Html.ActionLink("Details", "Details", new { id=item.ID })  |
+        @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+        *@
+        </tr>
+    }
+</ul>
