@@ -17,35 +17,28 @@ namespace DynamicSunTestTask.Controllers.cs
 
         [HttpGet]
         [Route("getAllColumns")]
-        async public Task<WheatherColumnEntity[]> GetAllAsync()
+        async public Task<WheatherColumn[]> GetAllAsync()
         {
             return await _WheatherColumnsCrud.GetAllColumnsAsync();
         }
 
         [HttpGet]
         [Route("getColumnById/{id}")]
-        async public Task<WheatherColumnEntity> GetByIdAsync(int id)
+        async public Task<WheatherColumn> GetByIdAsync(int id)
         {
             return await _WheatherColumnsCrud.GetColumnByIdAsync(id);
         }
 
         [HttpPost]
         [Route("addNewColumn")]
-        async public Task<WheatherColumnEntity> CreateColumnAsync(WheatherColumnEntity wheatherColumnEntity)
+        async public Task<WheatherColumn> CreateColumnAsync(WheatherColumn wheatherColumnEntity)
         {
             return await _WheatherColumnsCrud.CreateNewColumnAsync(wheatherColumnEntity);
         }
 
-        [HttpPut]
-        [Route("updateColumn")]
-        async public Task<WheatherColumnEntity> UpdateColumnAsync(WheatherColumnEntity wheatherColumnEntity)
-        {
-            return await _WheatherColumnsCrud.UpdateColumnAsync(wheatherColumnEntity);
-        }
-
         [HttpDelete]
         [Route("deleteColumn")]
-        public WheatherColumnEntity DeleteColumnAsync(int id)
+        public WheatherColumn DeleteColumnAsync(int id)
         {
             return _WheatherColumnsCrud.DeleteColumn(id);
         }
