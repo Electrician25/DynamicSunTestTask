@@ -12,27 +12,27 @@ namespace DynamicSunTestTask.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "WheatherColumnsEntitis",
+                name: "WheatherColumns",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Date = table.Column<string>(type: "text", nullable: false),
-                    MoskowTime = table.Column<string>(type: "text", nullable: false),
+                    Date = table.Column<string>(type: "text", nullable: true),
+                    MoscowTime = table.Column<string>(type: "text", nullable: false),
                     Temperature = table.Column<double>(type: "double precision", nullable: false),
                     AirHumidity = table.Column<double>(type: "double precision", nullable: false),
                     DewPoint = table.Column<double>(type: "double precision", nullable: false),
                     Pressure = table.Column<double>(type: "double precision", nullable: false),
                     DirectionOfTheWind = table.Column<string>(type: "text", nullable: true),
-                    WindSpeed = table.Column<double>(type: "double precision", nullable: false),
-                    Cloudy = table.Column<double>(type: "double precision", nullable: false),
-                    LowerCloudLimit = table.Column<double>(type: "double precision", nullable: false),
-                    HorizontalVisibility = table.Column<string>(type: "text", nullable: true),
+                    WindSpeed = table.Column<double>(type: "double precision", nullable: true),
+                    Cloudy = table.Column<double>(type: "double precision", nullable: true),
+                    LowerCloudLimit = table.Column<double>(type: "double precision", nullable: true),
+                    HorizontalVisibility = table.Column<double>(type: "double precision", nullable: true),
                     WeatherConditions = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WheatherColumnsEntitis", x => x.Id);
+                    table.PrimaryKey("PK_WheatherColumns", x => x.Id);
                 });
         }
 
@@ -40,7 +40,7 @@ namespace DynamicSunTestTask.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "WheatherColumnsEntitis");
+                name: "WheatherColumns");
         }
     }
 }

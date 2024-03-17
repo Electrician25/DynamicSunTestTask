@@ -1,4 +1,5 @@
 ﻿using DynamicSunTestTask.CrudServices;
+using DynamicSunTestTask.Data;
 using DynamicSunTestTask.Entites;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
@@ -6,13 +7,14 @@ using NPOI.XSSF.UserModel;
 public class ReadDocument
 {
     private readonly WheatherColumnsCrud _wheatherColumnsCrud;
-
-    public ReadDocument(WheatherColumnsCrud wheatherColumnsCrud)
+    private readonly ApplicationContext _applicationContext;
+    public ReadDocument(WheatherColumnsCrud wheatherColumnsCrud, ApplicationContext applicationContext)
     {
         _wheatherColumnsCrud = wheatherColumnsCrud;
+        _applicationContext = applicationContext;
     }
 
-    async public void WriteExcelDocument(string fileName)
+    public async Task WriteExcelDocument(string fileName)
     {
         IWorkbook workbook;
 
@@ -22,50 +24,101 @@ public class ReadDocument
             workbook = new XSSFWorkbook(fileStream);
         }
 
-        ISheet sheet = workbook.GetSheetAt(0);
+        var resultString = new object?[13];
+        var stringColumnLength = 12;
 
-        var newEntity = new WheatherColumnEntity();
-        var resultString = new object[13];
-        for (int i = 4; i < 12; i++)
+        int startIterationInddex = 4;
+        int currentId = _applicationContext.WheatherColumns.Count();
+        int month = 0;
+
+        while (month < 12)
         {
-            IRow row = sheet.GetRow(i);
-            for (int j = 0; j < 12; j++)
+            ISheet sheet = workbook.GetSheetAt(month);
+            for (int i = startIterationInddex; i <= sheet.LastRowNum; i++)
             {
-                try
+                IRow row = sheet.GetRow(i);
+                for (int j = 0; j < stringColumnLength; j++)
                 {
-                    var cellValue = row.GetCell(j).StringCellValue;
-                    resultString[j] = cellValue;
-                }
+                    if (row.GetCell(j) is null)
+                    {
+                        resultString[j] = null;
+                        continue;
+                    }
+                    if (row.GetCell(j).CellType is CellType.String)
+                    {
 
-                catch (Exception ex)
-                {
-                    var cellValue = row.GetCell(j).NumericCellValue;
-                    resultString[j] = cellValue;
+                        var cellValue = row.GetCell(j).StringCellValue;
+                        resultString[j] = cellValue;
+                    }
+                    else
+                    {
+                        var cellValue = row.GetCell(j).NumericCellValue;
+                        resultString[j] = cellValue;
+                    }
                 }
+                currentId++;
+                var element = CreateElement(resultString, currentId);
+                await _wheatherColumnsCrud.CreateNewColumnAsync(element);
             }
-            Console.WriteLine("------------------------------------------------------------------------------------------------");
-            var element = CreateElement(resultString, newEntity);
-            await _wheatherColumnsCrud.CreateNewColumnAsync(element);
+            month++;
         }
     }
 
-    private WheatherColumnEntity CreateElement(object[] cells, WheatherColumnEntity table)
+    private WheatherColumn CreateElement(object[] cells, int currentId)
     {
-        table.Date = (string)cells[0];
-        table.MoskowTime = (string)cells[1];
-        table.Temperature = (double)cells[2];
-        table.AirHumidity = (double)cells[3];
-        table.DewPoint = (double)cells[4];
-        table.Pressure = (double)cells[5];
-        table.DirectionOfTheWind = (string)cells[6];
-        table.WindSpeed = (double)cells[7];
-        table.Cloudy = (double)cells[8];
-        table.LowerCloudLimit = (double)cells[9];
-        table.HorizontalVisibility = (int)cells[10];
-        table.WeatherConditions = (string)cells[11];
-        cells[12] = table.Id + 1;
-        table.Id = (int)cells[12];
+        return new WheatherColumn()
+        {
+            Date = (string)cells[0],
+            MoscowTime = (string)cells[1],
+            Temperature = (double)cells[2],
+            AirHumidity = (double)cells[3],
+            DewPoint = (double)cells[4],
+            Pressure = (double)cells[5],
+            DirectionOfTheWind = (string)cells[6],
+            WindSpeed = RealWindSpeed(cells[7]),
+            Cloudy = RealCloudy(cells[8]),
+            LowerCloudLimit = RealLowerCloudLimit(cells[9]),
+            HorizontalVisibility = RealHorizontalVisibility(cells[10]),
+            WeatherConditions = RealCondotion(cells[11]),
+            Id = currentId
+        };
+    }
 
-        return table;
+    private string? RealCondotion(object value)
+    {
+        if (value is null) return null;
+        if (value.GetType().Name == "Double")
+        {
+            return null;
+        }
+        return (string)value;
+    }
+
+    private double? RealHorizontalVisibility(object value)
+    {
+        return value.GetType().Name == "Double"
+            ? (double?)value
+            : null;
+    }
+
+    private double? RealLowerCloudLimit(object value)
+    {
+        return value.GetType().Name == "Double"
+            ? (double?)value
+            : null;
+    }
+
+    private double? RealCloudy(object value)
+    {
+        return value.GetType().Name == "Double"
+            ? (double?)value
+            : null;
+    }
+
+    private double? RealWindSpeed(object value)
+    {
+        return value.GetType().Name == "Double"
+            ? (double?)value
+            : null;
     }
 }

@@ -13,35 +13,35 @@ namespace DynamicSunTestTask.CrudServices
             this.applicationContext = applicationContext;
         }
 
-        async public Task<WheatherColumnEntity[]> GetAllColumnsAsync()
+        public async Task<WheatherColumn[]> GetAllColumnsAsync()
         {
-            return await applicationContext.WheatherColumnsEntitis
+            return await applicationContext.WheatherColumns
                 .ToArrayAsync()
                 ?? throw new Exception("Columns not found!");
         }
 
-        async public Task<WheatherColumnEntity> GetColumnByIdAsync(int id)
+        public async Task<WheatherColumn> GetColumnByIdAsync(int id)
         {
-            return await applicationContext.WheatherColumnsEntitis
+            return await applicationContext.WheatherColumns
                 .FirstOrDefaultAsync(columnId => columnId.Id == id)
                 ?? throw new Exception("Column by id not found!");
         }
 
-        async public Task<WheatherColumnEntity> CreateNewColumnAsync(WheatherColumnEntity newColumn)
+        public async Task<WheatherColumn> CreateNewColumnAsync(WheatherColumn newColumn)
         {
             if (newColumn == null)
                 throw new Exception("New column not found!");
 
-            await applicationContext.WheatherColumnsEntitis
+            await applicationContext.WheatherColumns
                 .AddAsync(newColumn);
             applicationContext.SaveChanges();
 
             return newColumn;
         }
 
-        public WheatherColumnEntity DeleteColumn(int id)
+        public WheatherColumn DeleteColumn(int id)
         {
-            var column = applicationContext.WheatherColumnsEntitis
+            var column = applicationContext.WheatherColumns
                 .FirstOrDefault(columnId => columnId.Id == id)
                 ?? throw new Exception("For delete column not found");
 
@@ -49,31 +49,6 @@ namespace DynamicSunTestTask.CrudServices
             applicationContext.SaveChanges();
 
             return column;
-        }
-
-        async public Task<WheatherColumnEntity> UpdateColumnAsync(WheatherColumnEntity newColumn)
-        {
-            if (newColumn == null)
-                throw new Exception("For update column is not find!");
-
-            var column = await applicationContext.WheatherColumnsEntitis
-                .FirstOrDefaultAsync(id => id.Id == newColumn.Id)
-                ?? throw new Exception("For update column is not find");
-
-            newColumn.Date = column.Date;
-            newColumn.Cloudy = column.Cloudy;
-            newColumn.Pressure = column.Pressure;
-            newColumn.DewPoint = column.DewPoint;
-            newColumn.WindSpeed = column.WindSpeed;
-            newColumn.MoskowTime = column.MoskowTime;
-            newColumn.Temperature = column.Temperature;
-            newColumn.AirHumidity = column.AirHumidity;
-            newColumn.LowerCloudLimit = column.LowerCloudLimit;
-            newColumn.WeatherConditions = column.WeatherConditions;
-            newColumn.DirectionOfTheWind = column.DirectionOfTheWind;
-            newColumn.HorizontalVisibility = column.HorizontalVisibility;
-
-            return newColumn;
         }
     }
 }
