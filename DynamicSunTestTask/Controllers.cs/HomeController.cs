@@ -14,7 +14,6 @@ namespace ProCodeGuide.Samples.FileUpload.Controllers
         }
 
         public IActionResult Index() => View();
-
         public IActionResult Privacy() => View();
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -14,10 +14,10 @@ namespace ProCodeGuide.Samples.FileUpload.Controllers
             _readDocument = readDocument;
         }
 
-        public IActionResult Index() => View();
+        public IActionResult AddArhive() => View();
 
         [HttpPost]
-        public async Task<ActionResult> Index(IFormFile file)
+        public async Task<ActionResult> AddArhive(IFormFile file)
         {
             try
             {
@@ -29,12 +29,12 @@ namespace ProCodeGuide.Samples.FileUpload.Controllers
                 {
                     ViewBag.Message = "File Upload Failed";
                 }
+                _ = _readDocument.WriteExcelDocument(file.FileName);
             }
-            catch (Exception exception)
+            catch (Exception)
             {
                 ViewBag.Message = "File Upload Failed";
             }
-            _readDocument.WriteExcelDocument(file.FileName);
             return View();
         }
     }

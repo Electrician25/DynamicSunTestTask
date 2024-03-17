@@ -1,4 +1,3 @@
-using DynamicSunTestTask.ActionResult;
 using DynamicSunTestTask.Extensions;
 using ProCodeGuide.Samples.FileUpload.Interfaces;
 using ProCodeGuide.Samples.FileUpload.Services;
@@ -17,12 +16,6 @@ builder.Services.AddControllers();
 
 builder.Services.AddCategoryCrudServices();
 
-builder.Services.AddTransient(provider =>
-{
-    return new Func<string, HtmlResult>(
-        path => ActivatorUtilities.CreateInstance<HtmlResult>(provider, path));
-});
-
 var app = builder.Build();
 
 app.UseRouting();
@@ -37,6 +30,6 @@ app.UseRouting();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=BufferedFileUpload}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

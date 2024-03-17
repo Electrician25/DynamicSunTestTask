@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DynamicSunTestTask.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240317132733_InitialCreate")]
+    [Migration("20240317184844_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
