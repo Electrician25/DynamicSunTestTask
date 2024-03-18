@@ -1,4 +1,8 @@
-﻿<h1>Загрузить архив</h1>
+﻿<h1>Add Arhive</h1>
+
+<p>
+    <a asp-controller="ViewArhive" asp-action="Arhive">ViewArhive</a>
+</p>
 
 <hr />
 
@@ -6,6 +10,7 @@
     <input type="file" name="file" /> 
     <button type="submit">Upload File</button>
 </form>
+
  
 @if(ViewBag.Message != null)
 {

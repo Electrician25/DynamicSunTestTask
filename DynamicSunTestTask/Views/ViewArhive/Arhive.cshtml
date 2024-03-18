@@ -1,50 +1,130 @@
-﻿@model IEnumerable<DynamicSunTestTask.Entites.WheatherColumn>
+﻿@using DynamicSunTestTask.CrudServices;
+@model PaginatedList<DynamicSunTestTask.Entites.WheatherColumn>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
-<ul>
-    @foreach (var item in Model)
-    {
+@{
+    ViewData["Title"] = "Arhive";
+}
+
+<h1>Wheather Conditions</h1>
+
+<p>
+    <a asp-controller="BufferedFileUpload" asp-action="AddArhive">AddArhive</a>
+</p>
+
+<form asp-action="Arhive" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by date: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-action="Arhive">Back to beginning</a>
+        </p>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
         <tr>
-            <li>@Html.DisplayFor(modelItem => item.Date)</li>
-            <td>
-                @Html.DisplayFor(modelItem => item.MoscowTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Temperature)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AirHumidity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DewPoint)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Pressure)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DirectionOfTheWind)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WindSpeed)
-            </td>
             <th>
-                @Html.DisplayFor(modelItem => item.Cloudy)
+                <a asp-controller="ViewArhive" asp-action="Arhive" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Date</a>
             </th>
             <th>
-                @Html.DisplayFor(modelItem => item.LowerCloudLimit)
+                MoscowTime
             </th>
             <th>
-                @Html.DisplayFor(modelItem => item.HorizontalVisibility)
+                Temperature
             </th>
             <th>
-                @Html.DisplayFor(modelItem => item.WeatherConditions)
+                AirHumidity
             </th>
-            @*
-        <td>
-        @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-        @Html.ActionLink("Details", "Details", new { id=item.ID })  |
-        @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-        *@
+            <th>
+                DewPoint
+            </th>
+            <th>
+                Pressure
+            </th>
+            <th>
+                DirectionOfTheWind
+            </th>
+            <th>
+                WindSpeed
+            </th>
+            <th>
+                Cloudy
+            </th>
+            <th>
+                LowerCloudLimit
+            </th>
+            <th>
+                HorizontalVisibility
+            </th>
+            <th>
+                WeatherConditions
+            </th>
+            <th></th>
         </tr>
-    }
-</ul>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MoscowTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Temperature)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AirHumidity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DewPoint)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pressure)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DirectionOfTheWind)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WindSpeed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cloudy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LowerCloudLimit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HorizontalVisibility)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WeatherConditions)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Arhive"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="Arhive"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>

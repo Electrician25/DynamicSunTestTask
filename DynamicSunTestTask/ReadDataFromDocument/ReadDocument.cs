@@ -75,13 +75,20 @@ public class ReadDocument
             DewPoint = (double)cells[4],
             Pressure = (double)cells[5],
             DirectionOfTheWind = (string)cells[6],
-            WindSpeed = RealWindSpeed(cells[7]),
-            Cloudy = RealCloudy(cells[8]),
-            LowerCloudLimit = RealLowerCloudLimit(cells[9]),
-            HorizontalVisibility = RealHorizontalVisibility(cells[10]),
+            WindSpeed = GetCorrectCell(cells[7]),
+            Cloudy = GetCorrectCell(cells[8]),
+            LowerCloudLimit = GetCorrectCell(cells[9]),
+            HorizontalVisibility = GetCorrectCell(cells[10]),
             WeatherConditions = RealCondotion(cells[11]),
             Id = currentId
         };
+    }
+
+    private double? GetCorrectCell(object value)
+    {
+        return value.GetType().Name == "Double"
+            ? (double?)value
+            : null;
     }
 
     private string? RealCondotion(object value)
@@ -92,33 +99,5 @@ public class ReadDocument
             return null;
         }
         return (string)value;
-    }
-
-    private double? RealHorizontalVisibility(object value)
-    {
-        return value.GetType().Name == "Double"
-            ? (double?)value
-            : null;
-    }
-
-    private double? RealLowerCloudLimit(object value)
-    {
-        return value.GetType().Name == "Double"
-            ? (double?)value
-            : null;
-    }
-
-    private double? RealCloudy(object value)
-    {
-        return value.GetType().Name == "Double"
-            ? (double?)value
-            : null;
-    }
-
-    private double? RealWindSpeed(object value)
-    {
-        return value.GetType().Name == "Double"
-            ? (double?)value
-            : null;
     }
 }
