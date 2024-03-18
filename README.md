@@ -1,8 +1,3 @@
-If you can't load the file into the database, check the "ReadDataFromDocument" file
-especially line 21, then copy the full path from "UploadedFiles" and paste between $"INSERT YOUR PATH HERE {fileName}"
-
-
-
 # DynamicSunTestTask
 Test-task
 ## Description of the task:
@@ -15,3 +10,8 @@ An application for uploading an excel file to the server and conveniently readin
 * PostgreSQL
 * NPOI library
 * Razor Pages
+
+
+
+If you can't load the file into the database, check the "ReadDataFromDocument" file
+especially line 21, then copy the full path from "UploadedFiles" and paste between $"INSERT YOUR PATH HERE {fileName}"
